@@ -1,5 +1,6 @@
 package com.example.firstscreendemo;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,9 +28,9 @@ public class FirstScreen extends AppCompatActivity {
     private ImageView myImageView;
     private TextView countDown;
     //图片放置模式，1是居中，2是平铺
-    private int imageflag=1;
+    private int imageflag=2;
     //设置倒计时时间多少s
-    private int duration = 8;
+    private int duration = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,7 @@ public class FirstScreen extends AppCompatActivity {
         setContentView(myLayout);
     }
 
+    //设置倒计时
     private void initCountDown(){
         myImageView = findViewById(myImageView.getId());
         countDown = findViewById(countDown.getId());
@@ -107,27 +109,14 @@ public class FirstScreen extends AppCompatActivity {
                 countDown.setText("倒计时:"+(millisUntilFinished/1000)+"s ");
             }
 
+            //计时结束，跳转
             @Override
             public void onFinish() {
-
+                startActivity(new Intent(FirstScreen.this,MainActivity.class));
+                finish();
             }
         };
         timer.start();
     }
-
-//    private Handler updateHandler = new Handler(){
-//
-//        @Override
-//        public void dispatchMessage(Message msg) {
-//            super.dispatchMessage(msg);
-//            if(msg.what==2){
-//                if(duration>0){
-//                    duration--;
-//
-//                }
-//            }
-//        }
-//    }
-
 
 }
