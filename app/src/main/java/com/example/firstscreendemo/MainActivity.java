@@ -21,16 +21,21 @@ import java.io.InputStream;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView myImageView;
-    private int flag;
+    private int imageflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        showFirstScreen();
+    }
+
+    public void showFirstScreen(){
         //定义一个子控件
         myImageView = new ImageView(this);
         //为子控件设置ID
         myImageView.setId(1);
-        flag=2;
+        //图片放置模式，1是居中，2是平铺
+        imageflag=1;
 
         AssetManager assets = getAssets();
         InputStream is = null;
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //设置背景颜色
         myLayout.setBackgroundColor(Color.BLUE);
 
-        if(flag==1)//居中显示
+        if(imageflag==1)//居中显示
         {
             //设置ImageView的布局参数
             RelativeLayout.LayoutParams imageParams =
@@ -61,33 +66,22 @@ public class MainActivity extends AppCompatActivity {
             //将布局添加到父容器中
             myLayout.addView(myImageView,imageParams);
         }
-        else if(flag==2)//铺满
+        else if(imageflag==2)//铺满
         {
-            DisplayMetrics metric = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getRealMetrics(metric);
-//            int width = metric.widthPixels; // 宽度（PX）
-//            int height = metric.heightPixels; // 高度（PX）
-
             //设置ImageView的布局参数
             RelativeLayout.LayoutParams imageParams =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                             RelativeLayout.LayoutParams.MATCH_PARENT);
-//            RelativeLayout.LayoutParams imageParams =
-//                    new RelativeLayout.LayoutParams(width,height);
             imageParams.addRule(RelativeLayout.CENTER_VERTICAL);
             imageParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-//            imageParams.width=width;
-//            imageParams.height=height;
             //拉伸平铺图片
             myImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             //将布局添加到父容器中
             myLayout.addView(myImageView,imageParams);
         }
-
-
-
         setContentView(myLayout);
     }
 
+    
 
 }
